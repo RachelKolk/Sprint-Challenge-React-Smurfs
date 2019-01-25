@@ -11,6 +11,12 @@ class App extends Component {
     super(props);
     this.state = {
       smurfs: [],
+      smurf: {
+        id: '',
+        name: '',
+        age: '',
+        height: '',
+      }
     };
   }
 
@@ -27,13 +33,38 @@ class App extends Component {
     });
   }
 
+  addSmurf = () => {
+    axios.post("http://localhost:3333/smurfs", this.state.smurf)
+      .then(res => {
+        console.log('adding smurf');
+        this.setState({smurfs:res.data});
+      })
+      .catch(err => console.log(err));
+  }
+
+  handleInputChanges = e => {
+    e.persist();
+    this.setState(prevState => {
+      return {
+        smurf: {
+          ...prevState.smurf,
+          [e.target.name]: e.target.value
+        }
+      }
+    });
+  };
+
   // add any needed code to ensure that the smurfs collection exists on state and it has data coming from the server
   // Notice what your map function is looping over and returning inside of Smurfs.
   // You'll need to make sure you have the right properties on state and pass them down to props.
   render() {
     return (
       <div className="App">
-        <SmurfForm />
+        <SmurfForm 
+          smurf={this.state.smurf}
+          addSmurf={this.addSmurf}
+          handleInputChanges={this.handleInputChanges}
+        />
         <Smurfs smurfs={this.state.smurfs} />
       </div>
     );
