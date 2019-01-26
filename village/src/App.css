@@ -1,3 +1,13 @@
-.App {
+/* .App {
   text-align: center;
+} */
+
+.topLinks {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 1.5rem;
+  text-decoration: none;
+  color: blue;
+  margin-right: 4%;
+  text-align: left;
+  margin-left: 1%;
 }
